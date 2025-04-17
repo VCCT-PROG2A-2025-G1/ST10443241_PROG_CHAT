@@ -36,7 +36,7 @@
 # For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
 # refer to https://github.com/microsoft/github-actions-for-desktop-apps
 
-name: .NET Core Desktop CI/CD
+name: .NET Core CI
 
 on:
   push:
@@ -51,8 +51,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -60,33 +58,11 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore ${{ env.SOLUTION_NAME }}
+      run: dotnet restore
 
     - name: Build solution
-      run: dotnet build ${{ env.SOLUTION_NAME }} --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+      run: dotnet build --configuration Release --no-restore
 
     - name: Run tests
-      run: dotnet test ${{ env.SOLUTION_NAME }} --configuration ${{ env.BUILD_CONFIGURATION }} --no-build --verbosity normal
+      run: dotnet test --configuration Release --no-build --verbosity normal
 
-  package:
-    needs: build-and-test
-    runs-on: windows-latest
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
-
-    - name: Restore WAP project
-      run: msbuild ${{ env.WAP_PROJECT_PATH }} /t:Restore /p:Configuration=${{ env.BUILD_CONFIGURATION }}
-
-    - name: Build WAP package
-      run: msbuild ${{ env.WAP_PROJECT_PATH }} /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:UapAppxPackageBuildMode=StoreUpload /p:AppxBundle=Always /p:AppxBundlePlatforms="x86|x64"
-
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: ChatBot-Package
-        path: ${{ env.WAP_PROJECT_DIR }}/AppPackages
