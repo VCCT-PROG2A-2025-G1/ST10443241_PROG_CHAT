@@ -44,12 +44,6 @@ on:
   pull_request:
     branches: [ "master" ]
 
-env:
-  SOLUTION_NAME: PROG6221ChatBot.sln  # Update with your solution name
-  BUILD_CONFIGURATION: Release
-  WAP_PROJECT_DIR: PROG6221ChatBot.Package  # Update with your WAP project directory
-  WAP_PROJECT_PATH: PROG6221ChatBot.Package/PROG6221ChatBot.Package.wapproj  # Update with your WAP project path
-
 jobs:
   build-and-test:
     runs-on: windows-latest
