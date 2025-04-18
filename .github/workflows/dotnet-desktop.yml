@@ -55,7 +55,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        dotnet-version: '8.0.x'  # Match your project's SDK
 
     - name: Restore dependencies
       run: dotnet restore
@@ -69,8 +69,7 @@ jobs:
         echo "Sound file found successfully"
 
     - name: Build solution
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore /p:UseTaskHost=false
 
     - name: Run tests
       run: dotnet test --configuration Release --no-build --verbosity normal
-
