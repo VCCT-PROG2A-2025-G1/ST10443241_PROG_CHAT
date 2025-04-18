@@ -52,7 +52,13 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-
+    - name: Verify resources
+      run: |
+        ls ./Resources/ -Recurse
+        if (!(Test-Path "./Resources/Test File.wav")) {
+          Write-Error "WAV file not found in Resources folder!"
+          exit 1
+        }
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -63,7 +69,15 @@ jobs:
       run: dotnet restore
 
     - name: Build solution
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore -p:Platform="Any CPU" -p:Prefer32Bit=false -p:UseSharedCompilation=false
 
     - name: Run tests
       run: dotnet test --configuration Release --no-build --verbosity normal
+
+    - name: Verify output artifacts
+      run: |
+        ls ./bin/Release/net8.0/ -Recurse
+        if (!(Test-Path "./bin/Release/net8.0/Resources/Test File.wav")) {
+          Write-Error "WAV file not copied to output directory!"
+          exit 1
+        }
