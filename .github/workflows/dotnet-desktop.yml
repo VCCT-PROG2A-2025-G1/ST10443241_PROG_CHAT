@@ -60,6 +60,14 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
+    - name: Verify Resources folder exists
+      run: |
+        if (-not (Test-Path -Path "PROG6221ChatBot/Resources/Test File.wav")) {
+          Write-Error "Sound file not found in Resources folder!"
+          exit 1
+        }
+        echo "Sound file found successfully"
+
     - name: Build solution
       run: dotnet build --configuration Release --no-restore
 
