@@ -4,10 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Media;
-using PROG6221ChatBot.Properties;
-using static System.Net.Mime.MediaTypeNames;
-using System.IO;
 
 namespace PROG6221ChatBot
 {
@@ -17,12 +13,6 @@ namespace PROG6221ChatBot
 
         public void Opening()
         {
-            string soundPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Test File.wav");
-
-            using (var soundPlayer = new SoundPlayer(soundPath))
-            {
-                soundPlayer.Play();
-            }
 
             Console.WriteLine("\r\n   ______  __              _   ______          _________  \r\n .' ___  |[  |            / |_|_   _ \\        |  _   _  | \r\n/ .'   \\_| | |--.   ,--. `| |-' | |_) |   .--.|_/ | | \\_| \r\n| |        | .-. | `'_\\ : | |   |  __'. / .'`\\ \\  | |     \r\n\\ `.___.'\\ | | | | // | |,| |, _| |__) || \\__. | _| |_    \r\n `.____ .'[___]|__]\\'-;__/\\__/|_______/  '.__.' |_____|   \r\n                                                          \r\n");
             Console.WriteLine("");
