@@ -36,60 +36,24 @@
 # For a complete CI/CD sample to get started with GitHub Action workflows for Desktop Applications,
 # refer to https://github.com/microsoft/github-actions-for-desktop-apps
 
-name: .NET Framework 4.8 CI
+name: .NET Core CI
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
-jobs:
-  build-and-test:
-    runs-on: windows-latest  # .NET Framework requires Windows
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    # Install .NET 4.8 Runtime (not SDK)
-    - name: Install .NET Framework 4.8
-      run: |
-        choco install dotnetfx --version=4.8.0.20190930 -y --no-progress
-        # Alternative if Chocolatey fails:
-        # Invoke-WebRequest -Uri "https://go.microsoft.com/fwlink/?linkid=2088631" -OutFile "$env:RUNNER_TEMP\ndp48-web.exe"
-        # Start-Process -Wait -FilePath "$env:RUNNER_TEMP\ndp48-web.exe" -ArgumentList "/q /norestart"
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
 
-    # Set up MSBuild from Visual Studio
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1
+    - name: Restore dependencies
+      run: dotnet restore
 
-    # Restore NuGet packages (legacy packages.config style)
-    - name: Restore NuGet packages
-      run: |
-        nuget restore
-        # If using PackageReference instead of packages.config:
-        # msbuild /t:restore
+    - name: Build solution
+      run: dotnet build --configuration Release --no-restore
 
-    # Verify Resources folder (from your original workflow)
-    - name: Check Resources
-      run: |
-        if (-not (Test-Path -Path "PROG6221ChatBot/Resources/Test File.wav")) {
-          Write-Error "Sound file not found!"
-          exit 1
-        }
-
-    # Build with MSBuild
-    - name: Build Solution
-      run: |
-        msbuild /p:Configuration=Release /p:Platform="Any CPU" /p:RestorePackages=false
-        
-        # For parallel builds (faster but less verbose):
-        # msbuild /m /p:Configuration=Release /p:Platform="Any CPU" /clp:Summary
-
-    # Run tests (if using MSTest)
-    - name: Run Tests
-      run: |
-        vstest.console.exe "**/bin/Release/*.UnitTests.dll"
-        # Alternative for NUnit:
-        # nunit3-console "**/bin/Release/*.Tests.dll"
+    - name: Run tests
+      run: dotnet test --configuration Release --no-build --verbosity normal
