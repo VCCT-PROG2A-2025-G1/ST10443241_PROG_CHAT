@@ -1,19 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
+using System.Media;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace PROG6221ChatBot
 {
     class Chatbot
     {
-        string userName;
+        private readonly SoundPlayer _soundPlayer;
+        private string userName;
+
+        public Chatbot()
+        {
+
+            string soundPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Test File.wav");
+            _soundPlayer = new SoundPlayer(soundPath);
+           
+            _soundPlayer.Load();
+        }
 
         public void Opening()
         {
-
+            PlaySound();
             Console.WriteLine("\r\n   ______  __              _   ______          _________  \r\n .' ___  |[  |            / |_|_   _ \\        |  _   _  | \r\n/ .'   \\_| | |--.   ,--. `| |-' | |_) |   .--.|_/ | | \\_| \r\n| |        | .-. | `'_\\ : | |   |  __'. / .'`\\ \\  | |     \r\n\\ `.___.'\\ | | | | // | |,| |, _| |__) || \\__. | _| |_    \r\n `.____ .'[___]|__]\\'-;__/\\__/|_______/  '.__.' |_____|   \r\n                                                          \r\n");
             Console.WriteLine("");
             Console.WriteLine("Chatbot: Hello! May you please enter your UserName?");
@@ -34,8 +42,22 @@ namespace PROG6221ChatBot
 
                 if (response == $"Chatbot: Goodbye {userName}!")
                 {
+                    PlaySound(); // Play sound on exit if desired
                     break;
                 }
+            }
+        }
+
+        private void PlaySound()
+        {
+            try
+            {
+                // PlaySync will block until sound completes
+                _soundPlayer.PlaySync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Could not play sound: {ex.Message}");
             }
         }
 
