@@ -23,19 +23,52 @@ namespace PROG6221ChatBot
                 _soundPlayer.Load();
             }
 
-            public void Opening()
-            {
 
+
+            public void EntireChat()
+            {
+                Logo(); // Display the logo
+                GreetUser(); // Greet the user
+                MainConversation(); // Start the main conversation loop
+            }
+
+
+
+            public void Logo()
+            {
                 Console.WriteLine("\r\n      _  ____      ____  _       _______     ____  _____  ________   ______    ______    ______      ___    _________  \r\n     / \\|_  _|    |_  _|/ \\     |_   __ \\   |_   \\|_   _||_   __  |.' ____ \\ .' ____ \\  |_   _ \\   .'   `. |  _   _  | \r\n    / _ \\ \\ \\  /\\  / / / _ \\      | |__) |    |   \\ | |    | |_ \\_|| (___ \\_|| (___ \\_|   | |_) | /  .-.  \\|_/ | | \\_| \r\n   / ___ \\ \\ \\/  \\/ / / ___ \\     |  __ /     | |\\ \\| |    |  _| _  _.____`.  _.____`.    |  __'. | |   | |    | |     \r\n _/ /   \\ \\_\\  /\\  /_/ /   \\ \\_  _| |  \\ \\_  _| |_\\   |_  _| |__/ || \\____) || \\____) |  _| |__) |\\  `-'  /   _| |_    \r\n|____| |____|\\/  \\/|____| |____||____| |___||_____|\\____||________| \\______.' \\______.' |_______/  `.___.'   |_____|   \r\n                                                                                                                       \r\n");
                 //Left the ASCII art as a text string rather than image, there was nothing in the rubric directly stating that the ASCII had to be an image
                 Console.WriteLine("");
-                Console.WriteLine("CSAB: Hello! May you please enter your username?");
-                PlaySound(); // Play the opening sound
-                Console.WriteLine("");
-                userName = Console.ReadLine(); // Capture the username from the user
-                Console.WriteLine("");
-                Console.WriteLine($"CSAB: Hello {userName}! I can help you with some questions you may have!");
+            }
 
+
+
+            public void GreetUser()
+            {
+                Console.WriteLine("CSAB: Hello! May you please enter your username?");
+                Console.WriteLine("");
+                PlaySound(); // Play the opening sound
+
+                while (true)
+                {
+
+                    userName = Console.ReadLine(); // Capture the username from the user
+                    Console.WriteLine("");
+
+                    if (string.IsNullOrWhiteSpace(userName))
+                    {
+                        Console.WriteLine("CSAB: I didn't catch that. Could you please enter a valid username?"); 
+                    }
+
+                    break;
+                }
+                Console.WriteLine($"CSAB: Hello {userName}! I can help you with some questions you may have!");
+            }
+
+
+
+            public void MainConversation()
+            {
                 while (true)
                 {
                     Console.WriteLine();
@@ -43,7 +76,8 @@ namespace PROG6221ChatBot
                     string userInput = Console.ReadLine(); // Capture user input
                     Console.WriteLine();
 
-                    string response = BotLines(userInput); // Generate a response based on user input
+                    //CheckUserEmotions(userInput); // Check for user emotions
+                    string response = BotResponse(userInput); // Generate a response based on user input
                     TypeWriter(response); // Display the response with a typewriter effect
 
                     // Exit the loop if the user says goodbye
@@ -54,7 +88,14 @@ namespace PROG6221ChatBot
                 }
             }
 
-            private void PlaySound()
+            /*public void CheckUserEmotions(string userInput)
+            {
+            
+            }
+            */
+
+
+            public void PlaySound()
             {
                 try
                 {
@@ -67,7 +108,7 @@ namespace PROG6221ChatBot
                 }
             }
 
-            public string BotLines(string userInput)
+            public string BotResponse(string userInput)
             {
                 if (string.IsNullOrWhiteSpace(userInput))
                 {
@@ -118,6 +159,31 @@ namespace PROG6221ChatBot
                 else if (userInput.Contains("how") && userInput.Contains("vpn"))
                     return "CSAB: VPNs work by routing your device's internet connection through the VPN's private server instead of your internet service provider (ISP).";
 
+                else if (userInput.Contains("what") && userInput.Contains("password"))
+                    return "CSAB: A password is a secret combination of characters used to authenticate a user's identity and grant access to systems or data.";
+
+                else if (userInput.Contains("how") && userInput.Contains("password"))
+                    return "CSAB: Passwords work by comparing user input against a stored value, often using cryptographic hashing for security.";
+
+                else if (userInput.Contains("what") && userInput.Contains("scam"))
+                    return "CSAB: A scam is a deceptive scheme designed to trick individuals into giving away money, personal information, or access to systems.";
+
+                else if (userInput.Contains("how") && userInput.Contains("scam"))
+                    return "CSAB: Scams typically work by exploiting human psychology, using urgency, fear, or greed to bypass rational judgment.";
+
+                else if (userInput.Contains("what") && userInput.Contains("privacy"))
+                    return "CSAB: Privacy refers to an individual's right to control how their personal information is collected, used, and shared.";
+
+                else if (userInput.Contains("how") && userInput.Contains("privacy"))
+                    return "CSAB: Privacy can be protected through technical measures (encryption), policy controls, and careful management of personal data sharing.";
+
+                else if (userInput.Contains("what") && userInput.Contains("identity theft"))
+                    return "CSAB: Identity theft occurs when someone uses another person's personal information without permission, typically for financial gain.";
+
+                else if (userInput.Contains("how") && userInput.Contains("identity theft"))
+                    return "CSAB: Identity theft works by criminals gathering personal data (like SSNs or credit card numbers) through phishing, hacking, or data breaches, then impersonating the victim.";
+
+
                 // Default response for unrecognized input
                 else
                     // Inform the user that the bot doesn't understand the input
@@ -125,7 +191,7 @@ namespace PROG6221ChatBot
             }
 
             //typewriter effect for bot text
-            private void TypeWriter(string text, int delay = 30)
+            public void TypeWriter(string text, int delay = 30)
             {
                 foreach (char c in text)
                 {

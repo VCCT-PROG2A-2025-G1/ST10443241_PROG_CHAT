@@ -52,7 +52,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-
+    - name: Verify resources
+      run: |
+        # Check if Resources folder exists in the correct project location
+        $resourcesPath = "./PROG6221ChatBot/Resources"
+        if (Test-Path $resourcesPath) {
+          ls $resourcesPath -Recurse
+        } else {
+          Write-Host "Resources folder not found at $resourcesPath"
+          exit 0  # Continue build if resources aren't critical
+        }
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
@@ -63,7 +72,7 @@ jobs:
       run: dotnet restore
 
     - name: Build solution
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore -p:Platform="Any CPU" -p:Prefer32Bit=false
 
     - name: Run tests
       run: dotnet test --configuration Release --no-build --verbosity normal

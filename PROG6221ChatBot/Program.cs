@@ -14,7 +14,7 @@ namespace PROG6221ChatBot
         static void Main(string[] args)
         {
             Chatbot bot = new Chatbot(); // Create an instance of the Chatbot class
-            bot.Opening(); // Start the chatbot interaction
+            bot.EntireChat(); // Start the chatbot interaction
 
         }
     }
