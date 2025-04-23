@@ -18,3 +18,6 @@ This file will contain what keywords can be combined with what for cybersecurity
 	2.4.Vpn
 
 The bot is spelling sensitive, so it wont be able to understand if any of the keywords are misspelled.
+
+My video link:
+https://youtu.be/cAqD1sp0HkA
