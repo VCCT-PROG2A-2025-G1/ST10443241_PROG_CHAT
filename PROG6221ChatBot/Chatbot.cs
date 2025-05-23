@@ -6,7 +6,6 @@ using System.Threading;
 namespace PROG6221ChatBot
 {
 
-
     namespace PROG6221ChatBot
     {
         class Chatbot
@@ -23,7 +22,7 @@ namespace PROG6221ChatBot
                 _soundPlayer.Load();
             }
 
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             public void EntireChat()
             {
@@ -32,7 +31,7 @@ namespace PROG6221ChatBot
                 MainConversation(); // Start the main conversation loop
             }
 
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             public void Logo()
             {
@@ -41,7 +40,7 @@ namespace PROG6221ChatBot
                 Console.WriteLine("");
             }
 
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             public void GreetUser()
             {
@@ -51,21 +50,21 @@ namespace PROG6221ChatBot
 
                 while (true)
                 {
-
                     userName = Console.ReadLine(); // Capture the username from the user
                     Console.WriteLine("");
 
-                    if (string.IsNullOrWhiteSpace(userName))
+                    if (!string.IsNullOrWhiteSpace(userName))
                     {
-                        Console.WriteLine("CSAB: I didn't catch that. Could you please enter a valid username?"); 
+                        break; // Only break if we got a valid username
                     }
 
-                    break;
+                    Console.WriteLine("CSAB: I didn't catch that. Could you please enter a valid username?");
                 }
+
                 Console.WriteLine($"CSAB: Hello {userName}! I can help you with some questions you may have!");
             }
 
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             public void MainConversation()
             {
@@ -76,8 +75,10 @@ namespace PROG6221ChatBot
                     string userInput = Console.ReadLine(); // Capture user input
                     Console.WriteLine();
 
-                    //CheckUserEmotions(userInput); // Check for user emotions
+                    string emotion = CheckUserEmotions(userInput); // Check for user emotions
+                    string emotionalResponse = EmotionalResponse(emotion);
                     string response = BotResponse(userInput); // Generate a response based on user input
+                    TypeWriter(emotionalResponse); // Display the emotional response with a typewriter effect
                     TypeWriter(response); // Display the response with a typewriter effect
 
                     // Exit the loop if the user says goodbye
@@ -88,27 +89,44 @@ namespace PROG6221ChatBot
                 }
             }
 
-            /*public void CheckUserEmotions(string userInput)
-            {
-            
-            }
-            */
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-            public void PlaySound()
+            public string CheckUserEmotions(string input)
             {
-                try
-                {
-                    _soundPlayer.PlaySync(); // Play the sound synchronously
-                }
-                catch (Exception ex)
-                {
-                    // Handle any errors that occur during sound playback
-                    Console.WriteLine($"Could not play sound: {ex.Message}");
-                }
+                input = input.ToLower();
+                if (input.Contains("worried") || input.Contains("scared") || input.Contains("anxious"))
+                    return "worried";
+                if (input.Contains("angry") || input.Contains("frustrated") || input.Contains("annoyed"))
+                    return "frustrated";
+                if (input.Contains("happy") || input.Contains("excited") || input.Contains("great") || input.Contains("amazing"))
+                    return "positive";
+                if (input.Contains("confused") || input.Contains("unsure") || input.Contains("dont know") || input.Contains("don't know"))
+                    return "confused";
+                return "neutral";
             }
 
-            public string BotResponse(string userInput)
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+            public string EmotionalResponse(string emotion)
+            {
+                switch (emotion)
+                {
+                    case "worried":
+                        return "CSAB: I understand this might be concerning. Cybersecurity can feel overwhelming at times.";
+                    case "frustrated":
+                        return "CSAB: I hear your frustration. These issues can be annoying to deal with.";
+                    case "confused":
+                        return "CSAB: It's okay to feel unsure. I'm here to help explain things clearly.";
+                    case "positive":
+                        return "CSAB: I'm glad you're feeling positive! Cybersecurity awareness is important.";
+                    default:
+                        return string.Empty;
+                }
+            }
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+    public string BotResponse(string userInput)
             {
                 if (string.IsNullOrWhiteSpace(userInput))
                 {
@@ -190,6 +208,23 @@ namespace PROG6221ChatBot
                     return "CSAB: I'm sorry, I don't have a great understanding currently. Please ask me something else, hopefully more specific to cybersecurity.";
             }
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+            public void PlaySound()
+            {
+                try
+                {
+                    _soundPlayer.PlaySync(); // Play the sound synchronously
+                }
+                catch (Exception ex)
+                {
+                    // Handle any errors that occur during sound playback
+                    Console.WriteLine($"Could not play sound: {ex.Message}");
+                }
+            }
+
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+           
             //typewriter effect for bot text
             public void TypeWriter(string text, int delay = 30)
             {
@@ -213,3 +248,4 @@ namespace PROG6221ChatBot
         }
     }
 }
+//----------------------------------------------------------------------END OF FILE--------------------------------------------------------------------------------------------
