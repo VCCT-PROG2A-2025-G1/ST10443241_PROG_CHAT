@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Media;
 using System.Threading;
@@ -151,6 +152,9 @@ namespace PROG6221ChatBot
                 else if (userInput.Contains("what") && userInput.Contains("ask") && userInput.Contains("about"))
                     return "CSAB: I can answer things about cybersecurity, phishing, and safety while browsing the web! If you need a more concrete list, please refer to my readme file.";
 
+                //
+                else if (userInput.Contains("tip"))
+                    return  GiveRandomTip();
 
                 //"what" questions are answered with a definition and "how" with a brief explination
                 else if (userInput.Contains("what") && userInput.Contains("cybersecurity"))
@@ -208,7 +212,61 @@ namespace PROG6221ChatBot
                     return "CSAB: I'm sorry, I don't have a great understanding currently. Please ask me something else, hopefully more specific to cybersecurity.";
             }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+            public string GiveRandomTip(string userInput)
+            {
+                List<string> phishingTips = new List<string>
+                {
+                    "CSAB: Be cautious of emails asking for personal information. Scammers often disguise themselves as trusted organisations.",
+                    "CSAB: Check the sender's email address carefully - phishing emails often use addresses that look similar to legitimate ones.",
+                    "CSAB: Never click on suspicious links. Hover over them first to see the actual URL.",
+                    "CSAB: Look for poor grammar and spelling - these are common in phishing attempts.",
+                    "CSAB: If an email creates a sense of urgency, be extra careful - this is a common phishing tactic."
+                };
+
+                List<string> passwordTips = new List<string>
+                {
+                    "CSAB: Use a mix of uppercase, lowercase, numbers, and special characters in your passwords.",
+                    "CSAB: Consider using a passphrase instead of a password - they're easier to remember and harder to crack.",
+                    "CSAB: Never reuse passwords across different accounts.",
+                    "CSAB: Enable two-factor authentication wherever possible for extra security.",
+                    "CSAB: Use a password manager to securely store and generate strong passwords."
+                };
+
+                List<string> scamTips = new List<string>
+                {
+                    "CSAB: If an offer seems too good to be true, it probably is. Always verify before responding.",
+                    "CSAB: Legitimate organizations will never ask for sensitive information via email or text.",
+                    "CSAB: Be wary of unexpected calls claiming to be from tech support - this is a common scam tactic.",
+                    "CSAB: Research any company or individual before sending money or personal details.",
+                    "CSAB: Scammers often pressure you to act quickly. Take your time to verify any request."
+                };
+
+                Random random = new Random();
+
+                if (userInput.Contains("phishing"))
+                {
+                    return phishingTips[random.Next(phishingTips.Count)];
+                }
+                else if (userInput.Contains("password"))
+                {
+                    return passwordTips[random.Next(passwordTips.Count)];
+                }
+                else if (userInput.Contains("scam"))
+                {
+                    return scamTips[random.Next(scamTips.Count)];
+                }
+
+                //Returns all tips if user doesnt specify a specific one
+                List<string> allTips = new List<string>();
+                allTips.AddRange(phishingTips);
+                allTips.AddRange(passwordTips);
+                allTips.AddRange(scamTips);
+                return allTips[random.Next(allTips.Count)];
+            }
+
+            //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             public void PlaySound()
             {
