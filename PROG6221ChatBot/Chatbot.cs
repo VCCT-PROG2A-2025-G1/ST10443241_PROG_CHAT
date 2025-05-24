@@ -13,6 +13,8 @@ namespace PROG6221ChatBot
         {
             private readonly SoundPlayer _soundPlayer; // Handles playing sound files
             private string userName; // Stores the username of the user interacting with the chatbot
+            private string userInterest; // Stores the user's interest
+            private string userTopic; // Stores the topic of conversation
 
             public Chatbot()
             {
@@ -39,6 +41,7 @@ namespace PROG6221ChatBot
                 Console.WriteLine("\r\n      _  ____      ____  _       _______     ____  _____  ________   ______    ______    ______      ___    _________  \r\n     / \\|_  _|    |_  _|/ \\     |_   __ \\   |_   \\|_   _||_   __  |.' ____ \\ .' ____ \\  |_   _ \\   .'   `. |  _   _  | \r\n    / _ \\ \\ \\  /\\  / / / _ \\      | |__) |    |   \\ | |    | |_ \\_|| (___ \\_|| (___ \\_|   | |_) | /  .-.  \\|_/ | | \\_| \r\n   / ___ \\ \\ \\/  \\/ / / ___ \\     |  __ /     | |\\ \\| |    |  _| _  _.____`.  _.____`.    |  __'. | |   | |    | |     \r\n _/ /   \\ \\_\\  /\\  /_/ /   \\ \\_  _| |  \\ \\_  _| |_\\   |_  _| |__/ || \\____) || \\____) |  _| |__) |\\  `-'  /   _| |_    \r\n|____| |____|\\/  \\/|____| |____||____| |___||_____|\\____||________| \\______.' \\______.' |_______/  `.___.'   |_____|   \r\n                                                                                                                       \r\n");
                 //Left the ASCII art as a text string rather than image, there was nothing in the rubric directly stating that the ASCII had to be an image
                 Console.WriteLine("");
+                PlaySound(); // Play the opening sound
             }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -47,7 +50,6 @@ namespace PROG6221ChatBot
             {
                 Console.WriteLine("CSAB: Hello! May you please enter your username?");
                 Console.WriteLine("");
-                PlaySound(); // Play the opening sound
 
                 while (true)
                 {
@@ -127,7 +129,7 @@ namespace PROG6221ChatBot
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-    public string BotResponse(string userInput)
+            public string BotResponse(string userInput)
             {
                 if (string.IsNullOrWhiteSpace(userInput))
                 {
@@ -145,16 +147,60 @@ namespace PROG6221ChatBot
                 else if (userInput.Contains("bye") || userInput.Contains("goodbye") || userInput.Contains("byebye"))
                     return $"CSAB: Goodbye {userName}!";
 
-
                 // Responses to what the bot does
                 else if (userInput.Contains("what") && userInput.Contains("purpose"))
                     return "CSAB: I talk about cybersecurity! I will hopefully be able to describe certain keywords. Please refer to the readme file to see what I'm able to respond to!";
                 else if (userInput.Contains("what") && userInput.Contains("ask") && userInput.Contains("about"))
                     return "CSAB: I can answer things about cybersecurity, phishing, and safety while browsing the web! If you need a more concrete list, please refer to my readme file.";
 
-                //
+                // Tip response
                 else if (userInput.Contains("tip"))
-                    return  GiveRandomTip();
+                    return GiveRandomTip(userInput);
+
+                // Check if user is expressing interest in a topic
+                else if (userInput.Contains("i care about") || userInput.Contains("i like") || userInput.Contains("interested in"))
+                {
+                    if (userInput.Contains("privacy"))
+                    {
+                        userInterest = "privacy";
+                        return "CSAB: Great! I'll remember that you're interested in privacy. It's a crucial part of staying safe online.";
+                    }
+                    else if (userInput.Contains("phishing"))
+                    {
+                        userInterest = "phishing";
+                        return "CSAB: Phishing is an important topic! I'll focus on that for you.";
+                    }
+                    else if (userInput.Contains("password"))
+                    {
+                        userInterest = "password";
+                        return "CSAB: Password security is fundamental! I'll keep that in mind for our conversation.";
+                    }
+                    else if (userInput.Contains("cybersecurity") || userInput.Contains("cyber security"))
+                    {
+                        userInterest = "cybersecurity";
+                        return "CSAB: Cybersecurity is a broad and essential field! I'll focus on general cybersecurity topics for you.";
+                    }
+                    else if (userInput.Contains("firewall"))
+                    {
+                        userInterest = "firewall";
+                        return "CSAB: Firewalls are critical for network security! I'll remember your interest in this topic.";
+                    }
+                    else if (userInput.Contains("vpn"))
+                    {
+                        userInterest = "vpn";
+                        return "CSAB: VPNs are great for privacy and security! I'll focus on virtual private networks for you.";
+                    }
+                    else if (userInput.Contains("scam"))
+                    {
+                        userInterest = "scam";
+                        return "CSAB: Understanding scams is key to avoiding them! I'll focus on scam prevention for you.";
+                    }
+                    else if (userInput.Contains("identity theft") || userInput.Contains("identity fraud"))
+                    {
+                        userInterest = "identity theft";
+                        return "CSAB: Identity theft protection is crucial in today's digital world! I'll focus on this important topic.";
+                    }
+                }
 
                 //"what" questions are answered with a definition and "how" with a brief explination
                 else if (userInput.Contains("what") && userInput.Contains("cybersecurity"))
@@ -205,11 +251,14 @@ namespace PROG6221ChatBot
                 else if (userInput.Contains("how") && userInput.Contains("identity theft"))
                     return "CSAB: Identity theft works by criminals gathering personal data (like SSNs or credit card numbers) through phishing, hacking, or data breaches, then impersonating the victim.";
 
-
                 // Default response for unrecognized input
-                else
-                    // Inform the user that the bot doesn't understand the input
-                    return "CSAB: I'm sorry, I don't have a great understanding currently. Please ask me something else, hopefully more specific to cybersecurity.";
+                //Asks user to talk about there interest instead
+                else if (!string.IsNullOrEmpty(userInterest))
+                {
+                    return $"CSAB: As someone interested in {userInterest}, you might want to ask about related topics instead.";
+                }
+                // Inform the user that the bot doesn't understand the input
+                return "CSAB: I'm sorry, I don't have a great understanding currently. Please ask me something else, hopefully more specific to cybersecurity.";
             }
 
             //------------------------------------------------------------------------------------------------------------------------------------------------------------------
