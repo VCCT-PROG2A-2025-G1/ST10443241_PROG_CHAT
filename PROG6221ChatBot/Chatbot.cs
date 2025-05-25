@@ -92,8 +92,8 @@ namespace PROG6221ChatBot
                 }
             }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+            //------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            // Checks the user's input for specific emotional keywords
             public string CheckUserEmotions(string input)
             {
                 input = input.ToLower();
@@ -108,8 +108,8 @@ namespace PROG6221ChatBot
                 return "neutral";
             }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+            //------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            // Generates an emotional response based on the specific emotional keyword
             public string EmotionalResponse(string emotion)
             {
                 switch (emotion)
@@ -163,93 +163,150 @@ namespace PROG6221ChatBot
                     if (userInput.Contains("privacy"))
                     {
                         userInterest = "privacy";
+                        userTopic = "privacy";
                         return "CSAB: Great! I'll remember that you're interested in privacy. It's a crucial part of staying safe online.";
                     }
                     else if (userInput.Contains("phishing"))
                     {
                         userInterest = "phishing";
+                        userTopic = "phishing";
                         return "CSAB: Phishing is an important topic! I'll focus on that for you.";
                     }
                     else if (userInput.Contains("password"))
                     {
                         userInterest = "password";
+                        userTopic = "password";
                         return "CSAB: Password security is fundamental! I'll keep that in mind for our conversation.";
                     }
                     else if (userInput.Contains("cybersecurity") || userInput.Contains("cyber security"))
                     {
                         userInterest = "cybersecurity";
+                        userTopic = "cybersecurity";
                         return "CSAB: Cybersecurity is a broad and essential field! I'll focus on general cybersecurity topics for you.";
                     }
                     else if (userInput.Contains("firewall"))
                     {
                         userInterest = "firewall";
+                        userTopic = "firewall";
                         return "CSAB: Firewalls are critical for network security! I'll remember your interest in this topic.";
                     }
                     else if (userInput.Contains("vpn"))
                     {
                         userInterest = "vpn";
+                        userTopic = "vpn";
                         return "CSAB: VPNs are great for privacy and security! I'll focus on virtual private networks for you.";
                     }
                     else if (userInput.Contains("scam"))
                     {
                         userInterest = "scam";
+                        userTopic = "scam";
                         return "CSAB: Understanding scams is key to avoiding them! I'll focus on scam prevention for you.";
                     }
                     else if (userInput.Contains("identity theft") || userInput.Contains("identity fraud"))
                     {
                         userInterest = "identity theft";
+                        userTopic = "identity theft";
                         return "CSAB: Identity theft protection is crucial in today's digital world! I'll focus on this important topic.";
                     }
                 }
 
                 //"what" questions are answered with a definition and "how" with a brief explination
-                else if (userInput.Contains("what") && userInput.Contains("cybersecurity"))
-                    return "CSAB: Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks.";
+                else if (userInput.Contains("how"))
+                {
+                    if (userInput.Contains("cybersecurity"))
+                    {
+                        userTopic = "cybersecurity";
+                        return "CSAB: Cybersecurity is achieved by implementing a combination of technologies, processes, and practices designed to protect networks, devices, programs, and data from attacks.";
+                    }
+                    else if (userInput.Contains("phishing"))
+                    {
+                        userTopic = "phishing";
+                        return "CSAB: Phishing is typically carried out by email spoofing or instant messaging, and it often directs users to enter personal information at a fake website.";
+                    }
+                    else if (userInput.Contains("firewall"))
+                    {
+                        userTopic = "firewall";
+                        return "CSAB: Firewalls establish a barrier between a trusted internal network and untrusted external networks, such as the internet.";
+                    }
+                    else if (userInput.Contains("vpn"))
+                    {
+                        userTopic = "vpn";
+                        return "CSAB: VPNs work by routing your device's internet connection through the VPN's private server instead of your internet service provider (ISP).";
+                    }
+                    else if (userInput.Contains("password"))
+                    {
+                        userTopic = "password";
+                        return "CSAB: Passwords work by comparing user input against a stored value, often using cryptographic hashing for security.";
+                    }
+                    else if (userInput.Contains("scam"))
+                    {
+                        userTopic = "scam";
+                        return "CSAB: Scams typically work by exploiting human psychology, using urgency, fear, or greed to bypass rational judgment.";
+                    }
+                    else if (userInput.Contains("privacy"))
+                    {
+                        userTopic = "privacy";
+                        return "CSAB: Privacy can be protected through technical measures (encryption), policy controls, and careful management of personal data sharing.";
+                    }
+                    else if (userInput.Contains("identity theft"))
+                    {
+                        userTopic = "identity theft";
+                        return "CSAB: Identity theft works by criminals gathering personal data (like SSNs or credit card numbers) through phishing, hacking, or data breaches, then impersonating the victim.";
+                    }
+                }
 
-                else if (userInput.Contains("how") && userInput.Contains("cybersecurity"))
-                    return "CSAB: Cybersecurity is achieved by implementing a combination of technologies, processes, and practices designed to protect networks, devices, programs, and data from attacks.";
 
-                else if (userInput.Contains("what") && userInput.Contains("phishing"))
-                    return "CSAB: Phishing is a type of cyber attack that uses disguised email as a weapon.";
+                // Respond to specific "what" questions about cybersecurity topics
+                else if (userInput.Contains("what"))
+                {
+                    if (userInput.Contains("cybersecurity"))
+                    {
+                        userTopic = "cybersecurity";
+                        return "CSAB: Cybersecurity is the practice of protecting systems, networks, and programs from digital attacks.";
+                    }
+                    else if (userInput.Contains("phishing"))
+                    {
+                        userTopic = "phishing";
+                        return "CSAB: Phishing is a type of cyber attack that uses disguised email as a weapon.";
+                    }
+                    else if (userInput.Contains("firewall"))
+                    {
+                        userTopic = "firewall";
+                        return "CSAB: A firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules.";
+                    }
+                    else if (userInput.Contains("vpn"))
+                    {
+                        userTopic = "vpn";
+                        return "CSAB: A VPN, or Virtual Private Network, creates a secure connection over the internet between your device and the VPN server.";
+                    }
+                    else if (userInput.Contains("password"))
+                    {
+                        userTopic = "password";
+                        return "CSAB: A password is a secret combination of characters used to authenticate a user's identity and grant access to systems or data.";
+                    }
+                    else if (userInput.Contains("scam"))
+                    {
+                        userTopic = "scam";
+                        return "CSAB: A scam is a deceptive scheme designed to trick individuals into giving away money, personal information, or access to systems.";
+                    }
+                    else if (userInput.Contains("privacy"))
+                    {
+                        userTopic = "privacy";
+                        return "CSAB: Privacy refers to an individual's right to control how their personal information is collected, used, and shared.";
+                    }
+                    else if (userInput.Contains("identity theft"))
+                    {
+                        userTopic = "identity theft";
+                        return "CSAB: Identity theft occurs when someone uses another person's personal information without permission, typically for financial gain.";
+                    }
+                }
 
-                else if (userInput.Contains("how") && userInput.Contains("phishing"))
-                    return "CSAB: Phishing is typically carried out by email spoofing or instant messaging, and it often directs users to enter personal information at a fake website.";
-
-                else if (userInput.Contains("what") && userInput.Contains("firewall"))
-                    return "CSAB: A firewall is a network security system that monitors and controls incoming and outgoing network traffic based on predetermined security rules.";
-
-                else if (userInput.Contains("how") && userInput.Contains("firewall"))
-                    return "CSAB: Firewalls establish a barrier between a trusted internal network and untrusted external networks, such as the internet.";
-
-                else if (userInput.Contains("what") && userInput.Contains("vpn"))
-                    return "CSAB: A VPN, or Virtual Private Network, creates a secure connection over the internet between your device and the VPN server.";
-
-                else if (userInput.Contains("how") && userInput.Contains("vpn"))
-                    return "CSAB: VPNs work by routing your device's internet connection through the VPN's private server instead of your internet service provider (ISP).";
-
-                else if (userInput.Contains("what") && userInput.Contains("password"))
-                    return "CSAB: A password is a secret combination of characters used to authenticate a user's identity and grant access to systems or data.";
-
-                else if (userInput.Contains("how") && userInput.Contains("password"))
-                    return "CSAB: Passwords work by comparing user input against a stored value, often using cryptographic hashing for security.";
-
-                else if (userInput.Contains("what") && userInput.Contains("scam"))
-                    return "CSAB: A scam is a deceptive scheme designed to trick individuals into giving away money, personal information, or access to systems.";
-
-                else if (userInput.Contains("how") && userInput.Contains("scam"))
-                    return "CSAB: Scams typically work by exploiting human psychology, using urgency, fear, or greed to bypass rational judgment.";
-
-                else if (userInput.Contains("what") && userInput.Contains("privacy"))
-                    return "CSAB: Privacy refers to an individual's right to control how their personal information is collected, used, and shared.";
-
-                else if (userInput.Contains("how") && userInput.Contains("privacy"))
-                    return "CSAB: Privacy can be protected through technical measures (encryption), policy controls, and careful management of personal data sharing.";
-
-                else if (userInput.Contains("what") && userInput.Contains("identity theft"))
-                    return "CSAB: Identity theft occurs when someone uses another person's personal information without permission, typically for financial gain.";
-
-                else if (userInput.Contains("how") && userInput.Contains("identity theft"))
-                    return "CSAB: Identity theft works by criminals gathering personal data (like SSNs or credit card numbers) through phishing, hacking, or data breaches, then impersonating the victim.";
+                //this is the response for when the user asks about a topic that the bot has already discussed
+                else if (!string.IsNullOrEmpty(userTopic) && (userInput.Contains("more") || userInput.Contains("explain") || userInput.Contains("tell me")))
+                {
+                    return TopicContinue(userTopic);
+                }
+            
 
                 // Default response for unrecognized input
                 //Asks user to talk about there interest instead
@@ -262,7 +319,34 @@ namespace PROG6221ChatBot
             }
 
             //------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            // Continues the conversation on a specific topic if the user asks for more information
+            private string TopicContinue(string topic)
+            {
+                switch (topic.ToLower())
+                {
+                    case "privacy":
+                        return "CSAB: Continuing about privacy - did you know you can review your privacy settings on most social media platforms? " +
+                               "You can control who sees your information and what data is collected about you.";
 
+                    case "phishing":
+                        return "CSAB: More about phishing - attackers often use current events or urgent scenarios to trick people. " +
+                               "Always verify unexpected requests, even if they seem to come from trusted sources.";
+
+                    case "password":
+                        return "CSAB: Expanding on passwords - a good password should be long (12+ characters) and unique for each account. " +
+                               "Consider using a password manager to keep track of them all securely.";
+
+                    case "cybersecurity":
+                        return "CSAB: More on cybersecurity - it's not just about technology, but also about people and processes. " +
+                               "Regular software updates and employee training are just as important as firewalls and antivirus software.";
+
+                    default:
+                        return $"CSAB: Would you like me to explain more about {topic} or would you prefer to discuss something else?";
+                }
+            }
+
+            //------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            // Gives a random tip based on user input or a general tip if no specific topic is mentioned
             public string GiveRandomTip(string userInput)
             {
                 List<string> phishingTips = new List<string>
@@ -293,7 +377,7 @@ namespace PROG6221ChatBot
                 };
 
                 Random random = new Random();
-
+                //Ensures that the tips are relevant to the user's input and are also randomly selected
                 if (userInput.Contains("phishing"))
                 {
                     return phishingTips[random.Next(phishingTips.Count)];
@@ -307,7 +391,7 @@ namespace PROG6221ChatBot
                     return scamTips[random.Next(scamTips.Count)];
                 }
 
-                //Returns all tips if user doesnt specify a specific one
+                //Uses all tips if user doesnt specify a specific one
                 List<string> allTips = new List<string>();
                 allTips.AddRange(phishingTips);
                 allTips.AddRange(passwordTips);
@@ -315,7 +399,7 @@ namespace PROG6221ChatBot
                 return allTips[random.Next(allTips.Count)];
             }
 
-            //------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             public void PlaySound()
             {
