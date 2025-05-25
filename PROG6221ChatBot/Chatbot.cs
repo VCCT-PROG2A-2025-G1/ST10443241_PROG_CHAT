@@ -340,8 +340,24 @@ namespace PROG6221ChatBot
                         return "CSAB: More on cybersecurity - it's not just about technology, but also about people and processes. " +
                                "Regular software updates and employee training are just as important as firewalls and antivirus software.";
 
+                    case "firewall":
+                        return "CSAB: Going deeper on firewalls - there are both hardware and software firewalls. " +
+                               "A good practice is to use both for layered protection, especially for business networks.";
+
+                    case "vpn":
+                        return "CSAB: More about VPNs - when you use a VPN, your internet traffic is encrypted, making it much harder for others to intercept your data. " +
+                               "This is especially important when using public Wi-Fi networks.";
+
+                    case "scam":
+                        return "CSAB: Further on scams - modern scams can be very sophisticated, using psychological manipulation. " +
+                               "Remember: if an offer seems too good to be true, it probably is.";
+
+                    case "identity theft":
+                        return "CSAB: More about identity theft - victims often don't realize their identity has been stolen until significant damage is done. " +
+                               "Regularly checking your credit reports can help detect early signs of identity theft.";
+
                     default:
-                        return $"CSAB: Would you like me to explain more about {topic} or would you prefer to discuss something else?";
+                        return "";
                 }
             }
 
