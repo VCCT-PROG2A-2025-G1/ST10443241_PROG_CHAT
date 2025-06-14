@@ -20,4 +20,8 @@ This file will contain what keywords can be combined with what for cybersecurity
 The bot is spelling sensitive, so it wont be able to understand if any of the keywords are misspelled.
 
 My video link:
+Part 1:
 https://youtu.be/cAqD1sp0HkA
+
+Part 2:
+https://youtu.be/zsjznbC-M5E
