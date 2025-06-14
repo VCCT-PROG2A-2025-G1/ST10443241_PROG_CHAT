@@ -5,9 +5,6 @@ using System.Media;
 using System.Threading;
 
 namespace PROG6221ChatBot
-{
-
-    namespace PROG6221ChatBot
     {
         class Chatbot
         {
@@ -25,16 +22,15 @@ namespace PROG6221ChatBot
                 _soundPlayer.Load();
             }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+            //------------------------------------------------------------------------------------------------------------------------------------------------------------------
             public void EntireChat()
             {
-                Logo(); // Display the logo
-                GreetUser(); // Greet the user
-                MainConversation(); // Start the main conversation loop
+                Logo();
+                GreetUser();
+                MainConversation();
             }
 
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             public void Logo()
             {
@@ -138,6 +134,7 @@ namespace PROG6221ChatBot
                 }
 
                 userInput = userInput.ToLower(); // Normalize user input to lowercase for easier comparison
+
 
                 // Respond to greetings
                 if (userInput.Contains("hello") || userInput.Contains("hey") || userInput.Contains("hi"))
@@ -453,6 +450,5 @@ namespace PROG6221ChatBot
                 Console.WriteLine();
             }
         }
-    }
 }
 //----------------------------------------------------------------------END OF FILE--------------------------------------------------------------------------------------------
