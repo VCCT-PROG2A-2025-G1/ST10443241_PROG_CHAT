@@ -10,7 +10,7 @@
         </Grid.RowDefinitions>
 
         <!-- Chat display -->
-        <ScrollViewer x:Name="ChatScroll"
+        <ScrollViewer x:Name="Scroll"
               VerticalScrollBarVisibility="Hidden"
               HorizontalScrollBarVisibility="Disabled"
               Grid.Row="0"

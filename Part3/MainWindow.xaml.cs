@@ -84,7 +84,7 @@ namespace Part3
 
             if (isInQuizMode)
             {
-                ProcessQuizAnswer(userInput);
+                QuizAnswer(userInput);
                 return;
             }
 
@@ -116,7 +116,7 @@ namespace Part3
         {
             if (isCreatingTask)
             {
-                ContinueTaskCreationFlow(input);
+                TaskContinue(input);
                 return true;
             }
 
@@ -125,7 +125,7 @@ namespace Part3
                  ContainsAny(input, "task", "reminder", "todo", "note")) ||
                 input.Contains("i need to") || input.Contains("don't forget to"))
             {
-                StartTaskCreationFlow();
+                TaskStart();
                 return true;
             }
 
@@ -143,7 +143,7 @@ namespace Part3
                  ContainsAny(input, "task", "reminder")) ||
                 input.Contains("i've done") || input.Contains("i finished"))
             {
-                ProcessTaskCompletion(input);
+                TaskCompleted(input);
                 return true;
             }
 
@@ -152,14 +152,14 @@ namespace Part3
                  ContainsAny(input, "task", "reminder")) ||
                 input.Contains("i don't need to"))
             {
-                ProcessTaskDeletion(input);
+                TaskDeleted(input);
                 return true;
             }
 
             return false;
         }
 
-        public void StartTaskCreationFlow()
+        public void TaskStart()
         {
             isCreatingTask = true;
             pendingTask = new UserTask
@@ -171,7 +171,7 @@ namespace Part3
             PrintCSAB("Sure! What's the title of the task?");
         }
 
-        public void ContinueTaskCreationFlow(string input)
+        public void TaskContinue(string input)
         {
             if (string.IsNullOrWhiteSpace(pendingTask.Title))
             {
@@ -189,7 +189,7 @@ namespace Part3
 
             if (pendingTask.ReminderDate == null)
             {
-                pendingTask.ReminderDate = ParseDateFromInput(input);
+                pendingTask.ReminderDate = DateFromInput(input);
                 if (pendingTask.ReminderDate == null)
                 {
                     PrintCSAB("Sorry, I didn't understand the date. Please try something like 'tomorrow' or 'today'");
@@ -206,7 +206,7 @@ namespace Part3
             }
         }
 
-        public DateTime? ParseDateFromInput(string input)
+        public DateTime? DateFromInput(string input)
         {
             input = input.ToLower();
             if (input.Contains("today") || input.Contains("now")) return DateTime.Today;
@@ -221,9 +221,9 @@ namespace Part3
         }
 
 
-        public void ProcessTaskCompletion(string input)
+        public void TaskCompleted(string input)
         {
-            if (TryExtractId(input, out int taskId))
+            if (ExtractId(input, out int taskId))
             {
                 CompleteTaskById(taskId);
                 return;
@@ -270,9 +270,9 @@ namespace Part3
             }
         }
 
-        public void ProcessTaskDeletion(string input)
+        public void TaskDeleted(string input)
         {
-            if (TryExtractId(input, out int taskId))
+            if (ExtractId(input, out int taskId))
             {
                 DeleteTaskById(taskId);
                 return;
@@ -337,7 +337,7 @@ namespace Part3
             }
         }
 
-        public void ProcessQuizAnswer(string input)
+        public void QuizAnswer(string input)
         {
             int userAnswer = input.ToUpper() switch
             {
@@ -381,7 +381,7 @@ namespace Part3
             }
         }
 
-        public bool TryExtractId(string input, out int id)
+        public bool ExtractId(string input, out int id)
         {
             id = 0;
             var words = input.Split(' ');
@@ -445,7 +445,7 @@ namespace Part3
                 Margin = new Thickness(0, 4, 0, 4),
                 TextWrapping = TextWrapping.Wrap
             });
-            ChatScroll.ScrollToEnd();
+            Scroll.ScrollToEnd();
 
         }
 
@@ -459,7 +459,7 @@ namespace Part3
                 Margin = new Thickness(0, 4, 0, 4),
                 TextWrapping = TextWrapping.Wrap
             });
-            ChatScroll.ScrollToEnd();
+            Scroll.ScrollToEnd();
 
         }
 
