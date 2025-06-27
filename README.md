@@ -1,27 +1,87 @@
-The bot responds to KEYWORDS, NOT WHOLE SENTENCES. There are the two main keywords and then the specific keywords it can provide info on.
-This file will contain what keywords can be combined with what for cybersecurity answers.
+Cybersecurity Assistant Bot (CSAB)
 
-1.What:
-(Will give a definition)
+CSAB is an interactive chatbot designed to help users with cybersecurity awareness, task management, and education through quizzes and conversation.
 
-	1.1.Cybersecurity
-	1.2.Phishing
-	1.3.Firewall
-	1.4.Vpn
+Video Demonstrations
+- Part 1:(https://youtu.be/cAqD1sp0kA)
+- Part 2:(https://youtu.be/zsjznbC-M5E)
+- Part 3:(https://youtu.be/1naiY_njy6o)
 
-2.How:
-(Will give a brief explanation)
+Key Features
 
-	2.1.Cybersecurity
-	2.2.Phishing
-	2.3.Firewall
-	2.4.Vpn
+1. Cybersecurity Education
+The bot responds to keywords (not whole sentences) about cybersecurity topics:
 
-The bot is spelling sensitive, so it wont be able to understand if any of the keywords are misspelled.
+Definitions (respond to "what is...")
+- Cybersecurity
+- Phishing
+- Firewall
+- VPN
+- Password security
+- Scams
+- Privacy
+- Identity theft
 
-My video link:
-Part 1:
-https://youtu.be/cAqD1sp0HkA
+Explanations (respond to "how does... work")
+- Cybersecurity
+- Phishing
+- Firewall
+- VPN
+- Password security
+- Scams
+- Privacy
+- Identity theft
 
-Part 2:
-https://youtu.be/zsjznbC-M5E
+
+
+2. Interactive Cybersecurity Quiz
+- 12-question quiz covering essential cybersecurity knowledge
+- Multiple choice and true/false questions
+- Immediate feedback with explanations
+- Score summary at the end
+
+3. Task Management
+- Create reminders/tasks with titles, descriptions, and due dates
+- Natural language processing for task creation (e.g., "Remind me to update passwords tomorrow at 3pm")
+- View, complete, and delete tasks
+- Task list with completion status and reminder times
+
+4. Activity Logging
+- Tracks all user interactions
+- View recent activities with timestamp
+- Paginated display (type "more" to see additional entries)
+
+
+
+Quiz Mode
+- "Start quiz"
+- Answer with A/B/C/D for multiple choice or True/False
+
+Task Management
+- "Remind me to update my passwords tomorrow"
+- "Show my tasks"
+- "Complete 1"
+- "Delete task 2"
+
+General Commands
+- "Activity log"
+- "More" (when viewing logs)
+- "Exit" or "Goodbye"
+
+Notes
+- The bot is spelling-sensitive - keywords must be spelled correctly
+- Natural language processing for task creation understands various date/time formats
+- Maintains conversation context about user interests
+- Sound notifications for important events
+
+Development
+Built with C# and WPF (.NET Framework), using:
+- Natural language pattern matching
+- DateTime parsing
+- Object-oriented task management
+- Interactive UI components
+
+References:
+- ChatGPT
+- Lecturer Lessons
+- StackOverflow
